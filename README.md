@@ -78,3 +78,8 @@ Clonar el repositorio desde Github [here](https://github.com/mobarrio/LogReader.
 #####Probamos desde el Navegador
 
     http://SEVER:PUERTO
+
+#####Arrancar la aplicacion como servicio
+
+    # svcadm enable anlog
+    # svcs -a
