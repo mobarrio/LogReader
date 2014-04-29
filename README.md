@@ -1,9 +1,9 @@
 LogReader
 ==============
 
-Configuracion del syslog.conf Central
+###Configuracion del syslog.conf Central
 --------------
-####Actualizamos la configuracion del syslog.conf para que recepcione y almacene los eventos localmente.
+#####Actualizamos la configuracion del syslog.conf para que recepcione y almacene los eventos localmente.
     # vi /etc/syslog.conf
      
     #
@@ -13,27 +13,27 @@ Configuracion del syslog.conf Central
     
 **Nota:** *En Solaris el espacio entre el filtro y el log tiene que ser un* **TAB**
 
-####Reinicio del servicio
+#####Reinicio del servicio
 
     # svcadm restart system/system-log
     # svcadm refresh svc:/system/system-log:default
 
 
 
-Configuracion del syslog.conf en los equipos remotos
+###Configuracion del syslog.conf en los equipos remotos
 --------------
-####Actualizamos la configuracion del syslog.conf para que redirija a nuestro log central.
+#####Actualizamos la configuracion del syslog.conf para que redirija a nuestro log central.
 
     # vi /etc/syslog.conf
     # more syslog.conf
     *.warning                                       @192.168.XXX.XXX <- Apunta al LogCentral
 
-####Reinicio del servicio
+#####Reinicio del servicio
 
     # svcadm restart system/system-log
     # svcadm refresh svc:/system/system-log:default
 
-####Prueba de la nueva configuracion
+#####Prueba de la nueva configuracion
 
     # logger -p user.error "Test message"
     # logger -p user.notice "Test message user.notice"
@@ -44,7 +44,7 @@ Configuracion del syslog.conf en los equipos remotos
 
 
 
-Configuracion del servicio para un Oracle Solaris
+###Configuracion del servicio para un Oracle Solaris
 --------------
 
     # vi  /lib/svc/method/anlog
@@ -58,6 +58,23 @@ Configuracion del servicio para un Oracle Solaris
 
 
 
-Ejecucion y prueba
+###Instalacion, ejecucion y pruebas
 --------------
-[here](http://nodejs.org/)
+
+#####Intalacion
+Clonar el repositorio desde Github [here](https://github.com/mobarrio/LogReader.git)
+
+#####Instalamos los paquetes y las dependencias
+
+    # npm install
+    
+#####Arrancamos la aplicacion
+
+    # node anlog.js [--port {Puerto}]
+
+**Nota:** Por defecto arranca en el puerto 8080, si queremos que arranque en otro puerto pasamos el paramereo 
+          --port [Puerto]
+
+#####Probamos desde el Navegador
+
+    http://SEVER:PUERTO
