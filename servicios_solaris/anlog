@@ -1,0 +1,24 @@
+#!/bin/sh
+# DESC: SMF method definitions/wrapper.
+#
+# Mariano J. Obarrio Miles
+# 29/04/2014
+
+
+. /lib/svc/share/smf_include.sh
+
+#svccfg -s svc:/site/anlog setprop general/port="8080"
+#svcadm refresh anlog:default
+
+PUERTO=`svcprop -p general/port anlog:default`
+case "$1" in
+        start)
+	cd /var/www/tiadm/LogReader
+	/usr/bin/nohup /opt/Node/bin/node /var/www/tiadm/LogReader/anlog.js --port $PUERTO & 2>&1 >/dev/null
+        ;;
+*)
+        echo "Usage: $0 {start}"
+        exit 1
+        ;;
+esac
+exit $SMF_EXIT_OK 

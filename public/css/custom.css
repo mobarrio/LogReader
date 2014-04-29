@@ -1,0 +1,13 @@
+.fecha-actual {
+/*color: #687074;*/
+color: #585f69;
+font-size: 12px;
+font-weight: 400;
+padding: 2px 20px;
+text-transform: uppercase;	
+font-family: 'Open Sans', sans-serif;
+text-align: center;
+}
+.panel-body {
+	padding: 0px 15px;
+}

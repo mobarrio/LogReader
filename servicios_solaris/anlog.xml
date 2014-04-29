@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='site/anlog' type='service' version='0'>
+    <create_default_instance enabled='false'/>
+    <single_instance/>
+    <dependency name='fs-local' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <dependency name='fs-autofs' grouping='optional_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/autofs'/>
+    </dependency>
+    <dependency name='net-loopback' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/network/loopback'/>
+    </dependency>
+    <dependency name='net-physical' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/network/physical'/>
+    </dependency>
+    <exec_method name='start' type='method' exec='/lib/svc/method/anlog start' timeout_seconds='60'>
+      <method_context/>
+    </exec_method>
+    <exec_method name='stop' type='method' exec=':kill' timeout_seconds='10'>
+      <method_context/>
+    </exec_method>
+    <property_group name='general' type='framework'>
+      <propval name='port' type='astring' value='8080'/>
+    </property_group>    
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>NodeJS anlog Server</loctext>
+      </common_name>
+      <description>
+        <loctext xml:lang='C'>Servicio de Globalia Sistemas - Analizador de SysLog</loctext>
+      </description>
+    </template>
+  </service>
+</service_bundle>

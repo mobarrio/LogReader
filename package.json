@@ -1,0 +1,21 @@
+{
+  "name": "anlogJS",
+  "version": "0.0.1",
+  "description": "Analizador de logs",
+  "main": "anlog.js",
+  "dependencies": {
+    "express": "^4.0.0",
+    "date-utils": "^1.2.15",
+    "path": "^0.4.9",
+    "ejs": "^1.0.0",
+    "events": "^1.0.0",
+    "socket.io": "^0.9.16",
+    "minimist": "0.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mariano J. Obarrio Miles",
+  "license": "MIT"
+}

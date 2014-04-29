@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html itemscope itemtype="http://schema.org/Article" lang="es" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html itemscope itemtype="http://schema.org/Article" lang="es" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html itemscope itemtype="http://schema.org/Article" lang="es"> <!--<![endif]-->  
+<head>
+	<title>Log Analyzer</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Analizador de logs online">
+    <meta name="author" content="Mariano J. Obarrio Miles">
+
+    <!-- Social meta tags -->
+
+    <!-- Google Authorship and Publisher Markup -->
+    <link rel="author" href="https://plus.google.com/110653090872370204097/posts">
+    <link rel="publisher" href="https://plus.google.com/110653090872370204097/">
+    <link rel="canonical" href="http://tiadm.globalia.com/">
+    <meta name="google-site-verification" content="gfcF7PCBHKCYlOLbdYceJQVysvemjtu_u570_Rgg0II" />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Log Analyzer">
+    <meta itemprop="description" content="Analizador de logs online">
+    <meta itemprop="image" content="http://tiadm.globalia.com/img/morro.png">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@Mariano_Obarrio">
+    <meta name="twitter:title" content="Log Analyzer">
+    <meta name="twitter:description" content="Analizador de logs online">
+    <meta name="twitter:creator" content="@Mariano_Obarrio">
+    <!-- Twitter Summary card images must be at least 200x200px -->
+    <meta name="twitter:image:src" content="http://tiadm.globalia.com/img/morro.png">
+    <meta name="twitter:domain" content="http://tiadm.globalia.com/">
+
+    <!-- Open Graph data -->
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Log Analyzer">
+    <meta property="og:description" content="Analizador de logs online">
+    <meta property="og:url" content="http://tiadm.globalia.com/">
+    <meta property="og:site_name" content="Log Analyzer">
+    <meta property="og:image" content="http://tiadm.globalia.com/img/morro.png">
+
+    <!-- End Social meta tags -->
+
+    <!-- CSS Global Compulsory-->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/headers/header1.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="shortcut icon" id="favicon" href="img/favicon.ico">        
+    <!-- CSS Implementing Plugins -->    
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+    <!-- CSS Theme -->    
+    <link rel="stylesheet" href="css/themes/blue.css">
+    <!-- CSS Personal -->    
+	<link rel="stylesheet" href="css/flags.css">
+	<link rel="stylesheet" href="css/tweets.css" />
+
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/logreader.css">
+	<link rel="stylesheet" href="css/themes/default.css" id="style_color">
+	<link rel="stylesheet" href="css/custom.css">
+
+
+	<style type="text/css">
+		@media (min-width: 800px) { .header-fixed { height: 200px; } }
+		@media (max-width: 640px) { .ocultar { display: none !important; } }
+		@media (max-width: 394px) { .ocultar { display: none !important; } }
+		@media (max-width: 277px) { .ocultar { display: none !important; } }
+		.ie-not-supported { display: none; }
+
+	    /* Estilos generales
+	    ------------------------------------*/
+	    body { 
+	    	overflow-y:scroll; 
+	    	overflow-x:auto; 
+	    }
+
+	    /*Contact Pages
+	    ------------------------------------*/
+	    .map { width:100%; height:350px; border-top:solid 1px #eee; border-bottom:solid 1px #eee; }
+	    /* important! bootstrap sets max-width on img to 100% which conflicts with google map canvas*/
+	    .map img { max-width: none; }
+	    .map-box { height: 250px; }
+	    .map-box-space { margin-top: 15px; }
+	    .map-box-space1 { margin-top: 7px; }
+	    .menu, .submenu { cursor: pointer; }
+
+		.boxed-layout {
+			padding: 0;
+			margin-left: auto !important;
+			margin-right: auto !important;
+	    	background-color: black;
+			color: rgb(16, 224, 16);
+			font-size: 11px;
+	    	overflow-y:scroll; 
+	    	overflow-x:auto; 
+		}
+		.infobox-data { min-width: 80px !important; }
+		.infobox>.infobox-icon>.ace-icon-green:before { color: #03A544; }
+		.check-severity-emerg, .check-severity-alert, .check-severity-crit,
+		.check-severity-error, .check-severity-warning, .check-severity-notice, 
+		.check-severity-info {display: none;}
+	</style>
+
+	<!-- JS Global Compulsory -->           
+	<script type="text/javascript" src="plugins/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="plugins/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script> 
+	<script type="text/javascript" src="plugins/hover-dropdown.min.js"></script> 
+	<script type="text/javascript" src="plugins/back-to-top.js"></script>
+	<!-- JS Implementing Plugins -->           
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&language=es"></script>
+	<script type="text/javascript" src="plugins/gmap3/gmap3.js"></script>
+	<!--[if lt IE 9]>
+		<script src="plugins/respond.js"></script>
+	<![endif]-->
+	<!-- JS Personal -->           
+	<script src="http://<%=url%>:<%=port%>/socket.io/socket.io.js"></script>
+	<script src="http://momentjs.com/downloads/moment-with-langs.min.js"></script>
+	<script src="js/logreader.js?v=201404151725"></script>
+
+	<script src="http://code.highcharts.com/stock/highstock.js"></script>
+	<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+
+	<script src="js/jquery.slimscroll.min.js"></script>
+</head>
+	<body>
+		<div class="info-service-logreader text-center" style="display: block;">
+			<div class="iniciando" style="font-size:16px;">Analizador de Logs<br><i class="fa fa-spinner fa-spin"></i> Conectando con el servidor...</div>
+		</div>		
+		<div class='service-logreader' style="display: none;">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="infobox-container">		
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-emerg"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-emerg-count">-</span>
+								<div class="infobox-content">Emergency</div>
+							</div>
+							<div class="infobox-icon check-severity-emerg" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="emerg"></i>
+							</div>																					
+						</div>
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-alert"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-alert-count">-</span>
+								<div class="infobox-content">Alert</div>
+							</div>
+							<div class="infobox-icon check-severity-alert" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="alert"></i>
+							</div>																					
+						</div>
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-crit"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-crit-count">-</span>
+								<div class="infobox-content">Critical</div>
+							</div>
+							<div class="infobox-icon check-severity-crit" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="crit"></i>
+							</div>																					
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="infobox-container">		
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-error"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-error-count">-</span>
+								<div class="infobox-content">Errors</div>
+							</div>
+							<div class="infobox-icon check-severity-error" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="error"></i>
+							</div>							
+						</div>
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-warning"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-warning-count">-</span>
+								<div class="infobox-content">Warnings</div>
+							</div>
+							<div class="infobox-icon check-severity-warning" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="warning"></i>
+							</div>							
+						</div>
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-notice"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-notice-count">-</span>
+								<div class="infobox-content">Notice</div>
+							</div>
+							<div class="infobox-icon check-severity-notice" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="notice"></i>
+							</div>
+						</div>
+					</div>		
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="infobox-container">
+						<div class="infobox infobox-red"></div>
+						<div class="infobox infobox-red">
+							<div class="infobox-icon">
+							 	<i class="ace-icon fa fa-bell infobox-icon-info"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number infobox-log-info-count">-</span>
+								<div class="infobox-content">Info</div>
+							</div>
+							<div class="infobox-icon check-severity-info" style='display: none;'>
+							 	<i class="ace-icon ace-icon-green fa fa-check label-init-severity" data-severity="info"></i>
+							</div>														
+						</div>
+						<div class="infobox infobox-red"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class='container-emerg' style="display:none;">
+						<div class="container log-title">emergency <span class='log-emerg-count'></span></div>
+						<div id="log-emerg" class="boxed-layout container log-emerg">
+							<div  class='iniciando-emerg' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>  Conectando con el servidor...</div>
+						</div>
+					</div>
+
+					<div class='container-alert' style="display:none;">
+						<div class="container log-title">alert <span class='log-alert-count'></span></div>
+						<div id="log-alert" class="boxed-layout container log-alert">
+							<div  class='iniciando-alert' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>  Conectando con el servidor...</div>
+						</div>
+					</div>
+
+					<div class='container-crit' style="display:none;">
+						<div class="container log-title">critical <span class='log-crit-count'></span></div>
+						<div id="log-crit" class="boxed-layout container log-crit">
+							<div  class='iniciando-crit' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>  Conectando con el servidor...</div>
+						</div>
+					</div>
+
+					<div class='container-error' style="display:none;">
+						<div class="container log-title">error <span class='log-error-count'></span></div>
+						<div id="log-error" class="boxed-layout container log-error">
+							<div  class='iniciando-error' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>  Conectando con el servidor...</div>
+						</div>
+					</div>
+					<div class='container-warning' style="display:none;">
+						<div class="container log-title">warning <span class='log-warning-count'></span></div>
+						<div id="log-warning" class="boxed-layout container log-warning">
+							<div  class='iniciando-warning' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>  Conectando con el servidor...</div>
+						</div>
+					</div>
+					<div class='container-notice' style="display:none;">
+						<div class="container log-title">notice <span class='log-notice-count'></span></div>
+						<div id="log-notice" class="boxed-layout container log-notice">
+							<div  class='iniciando-notice' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>  Conectando con el servidor...</div>
+						</div>
+					</div>
+					<div class='container-info' style="display:none;">
+						<div class="container log-title">info <span class='log-info-count'></span></div>
+						<div id="log-info" class="boxed-layout container log-info">
+							<div  class='iniciando-info' style='font-size:16px;'><i class='fa fa-spinner fa-spin'></i>Conectando con el servidor...</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+
+	if (typeof String.prototype.contains === 'undefined') {   String.prototype.contains = function(it) { return this.indexOf(it) != -1; }; }
+	$(function() {
+		LogReader.init('<%=url%>');
+		$(document).on('click',".label-init-severity",function(evt){
+			evt.preventDefault();
+			LogReader.init_severity_counter($(this).data('severity'));
+			return false;
+		});	
+	});
+
+
+</script>
